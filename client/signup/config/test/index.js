@@ -21,7 +21,7 @@ jest.mock( 'lib/user', () => () => {
 	};
 } );
 
-describe( 'index', () => {
+describe( 'Signup config steps', () => {
 	test( 'should not have overlapping step/flow names', () => {
 		const overlappingNames = intersection( keys( steps ), keys( flows.getFlows() ) );
 
@@ -31,6 +31,27 @@ describe( 'index', () => {
 					overlappingNames +
 					'].'
 			);
+		}
+	} );
+
+	test( 'Should not have unused steps configured', () => {
+		const activeSteps = [
+			...new Set(
+				Object.values( flows.getFlows() ).flatMap( ( { steps: stepsArray } ) => stepsArray )
+			),
+		];
+		const deadSteps = [];
+
+		Object.values( steps )
+			.map( ( { stepName } ) => stepName )
+			.forEach( ( stepName ) => {
+				if ( ! activeSteps.includes( stepName ) ) {
+					deadSteps.push( stepName );
+				}
+			} );
+
+		if ( deadSteps.length > 0 ) {
+			throw new Error( 'The following steps do not appear in any flow: [' + deadSteps + '].' );
 		}
 	} );
 } );
