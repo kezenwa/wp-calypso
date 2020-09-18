@@ -18,7 +18,7 @@ class DynamicSeparatorBlockComponent extends GutenbergBlockComponent {
 	 * to test the functionality of the Dynamic HR in the editor and later in the
 	 * frontend too.
 	 *
-	 * @param {number} pixels the amount of pixerls to expand the HR ruler by, horizontally.
+	 * @param {number} pixels the amount of pixels to expand the HR ruler by, horizontally.
 	 */
 	async resizeBy( pixels ) {
 		// We need to move focus away from the layout grid, or any subsequent blocks inserted will be part of it
